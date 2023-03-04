@@ -1,0 +1,241 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>内存空间详细图解 | Akira_Blog</title><meta name="author" content="AKira"><meta name="copyright" content="AKira"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="ffffff"><meta name="description" content="内存空间详细图解JavaScript 具有自动垃圾回收机制，周期性运行，进行回收内存空间中不在被使用的变量以及资源 内存空间 关系着 引用数据类型、引用传递、浅复制、深复制以及闭包等等 说到内存必要提及的便是 三种数据结构 栈（stack）、队列（queue）、堆（heap） 一、栈JavaScript 中没有严格意义上区分栈内存和堆内存  栈内存维护基础数据类型，堆内存维护引用数据类型 栈内存是">
+<meta property="og:type" content="article">
+<meta property="og:title" content="内存空间详细图解">
+<meta property="og:url" content="https://amoslier.github.io/2023/03/04/JS/%E6%A0%B8%E5%BF%83/%EF%BC%88%E4%B8%80%EF%BC%89%E5%86%85%E5%AD%98%E7%A9%BA%E9%97%B4%E8%AF%A6%E7%BB%86%E5%9B%BE%E8%A7%A3/index.html">
+<meta property="og:site_name" content="Akira_Blog">
+<meta property="og:description" content="内存空间详细图解JavaScript 具有自动垃圾回收机制，周期性运行，进行回收内存空间中不在被使用的变量以及资源 内存空间 关系着 引用数据类型、引用传递、浅复制、深复制以及闭包等等 说到内存必要提及的便是 三种数据结构 栈（stack）、队列（queue）、堆（heap） 一、栈JavaScript 中没有严格意义上区分栈内存和堆内存  栈内存维护基础数据类型，堆内存维护引用数据类型 栈内存是">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2023/03/04/c3EGWyJDBLm87sA.jpg">
+<meta property="article:published_time" content="2023-03-04T14:45:28.088Z">
+<meta property="article:modified_time" content="2023-03-04T14:40:58.529Z">
+<meta property="article:author" content="AKira">
+<meta property="article:tag" content="前端,Vue,React,JavaScript,NodeJS">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2023/03/04/c3EGWyJDBLm87sA.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://amoslier.github.io/2023/03/04/JS/%E6%A0%B8%E5%BF%83/%EF%BC%88%E4%B8%80%EF%BC%89%E5%86%85%E5%AD%98%E7%A9%BA%E9%97%B4%E8%AF%A6%E7%BB%86%E5%9B%BE%E8%A7%A3/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '内存空间详细图解',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-03-04 22:40:58'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = (url,id = false) => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      if (id) link.id = id
+      link.onerror = reject
+      link.onload = link.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        link.onload = link.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(link)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', 'ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.3.0"></head><body><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js/themes/blue/pace-theme-minimal.min.css"/><script src="https://cdn.jsdelivr.net/npm/pace-js/pace.min.js"></script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://s2.loli.net/2023/03/04/c3EGWyJDBLm87sA.jpg" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">29</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><hr/></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://w.wallhaven.cc/full/gp/wallhaven-gpw527.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Akira_Blog"><span class="site-name">Akira_Blog</span></a></span><div id="menus"><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">内存空间详细图解</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-03-04T14:45:28.088Z" title="发表于 2023-03-04 22:45:28">2023-03-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-03-04T14:40:58.529Z" title="更新于 2023-03-04 22:40:58">2023-03-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/JavaScript/">JavaScript</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/JavaScript/%E6%A0%B8%E5%BF%83/">核心</a></span></div><div class="meta-secondline"></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="内存空间详细图解"><a href="#内存空间详细图解" class="headerlink" title="内存空间详细图解"></a>内存空间详细图解</h1><p>JavaScript 具有自动垃圾回收机制，周期性运行，进行回收内存空间中不在被使用的变量以及资源</p>
+<p>内存空间 关系着 <strong>引用数据类型、引用传递、浅复制、深复制以及闭包等等</strong></p>
+<p>说到内存必要提及的便是 三种数据结构 <strong>栈（stack）、队列（queue）、堆（heap）</strong></p>
+<h3 id="一、栈"><a href="#一、栈" class="headerlink" title="一、栈"></a>一、栈</h3><p>JavaScript 中没有严格意义上区分<strong>栈内存</strong>和<strong>堆内存</strong></p>
+<blockquote>
+<p>栈内存维护<strong>基础数据类型</strong>，堆内存维护<strong>引用数据类型</strong></p>
+<p>栈内存是从<strong>地址高位</strong>开始分配，堆内存从<strong>地址低位</strong>开始分配</p>
+</blockquote>
+<p>JavaScript 的执行上下文的执行顺序借用了栈数据结构的存取方式（函数调用栈）</p>
+<p><strong>先进后出</strong></p>
+<p><img src="https://s1.328888.xyz/2022/04/21/r6wD0.png" alt="截图"></p>
+<h3 id="二、堆"><a href="#二、堆" class="headerlink" title="二、堆"></a>二、堆</h3><p><strong>树状结构</strong></p>
+<h3 id="三、队列"><a href="#三、队列" class="headerlink" title="三、队列"></a>三、队列</h3><p><strong>先进先出</strong></p>
+<p>事件循环（Event Loop）</p>
+<p><img src="https://s1.328888.xyz/2022/04/21/r6KBF.png" alt="截图"></p>
+<h3 id="四、变量对象（环境记录对象）"><a href="#四、变量对象（环境记录对象）" class="headerlink" title="四、变量对象（环境记录对象）"></a>四、变量对象（环境记录对象）</h3><p>JavaScript 的执行上下文生成之后，会创建一个叫做变量对象的特殊对象，囊括上下文中所有的变量以及函数</p>
+<h3 id="五、引用数据类型与堆内存"><a href="#五、引用数据类型与堆内存" class="headerlink" title="五、引用数据类型与堆内存"></a>五、引用数据类型与堆内存</h3><p>例如一些 数组、对象类型的变量 在 变量对象 中以地址（推内存中实际存储地址）的形保存</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a1 = <span class="number">0</span>;   <span class="comment">// 变量对象</span></span><br><span class="line"><span class="keyword">var</span> a2 = <span class="string">&#x27;this is string&#x27;</span>; <span class="comment">// 变量对象</span></span><br><span class="line"><span class="keyword">var</span> a3 = <span class="literal">null</span>; <span class="comment">// 变量对象</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> b = &#123; <span class="attr">m</span>: <span class="number">20</span> &#125;; <span class="comment">// 变量b存在于变量对象中，&#123;m: 20&#125; 作为对象存在于堆内存中</span></span><br><span class="line"><span class="keyword">var</span> c = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]; <span class="comment">// 变量c存在于变量对象中，[1, 2, 3] 作为对象存在于堆内存中</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://s1.328888.xyz/2022/04/21/r633J.png" alt="截图"></p>
+<p>当我们去访问引用数据类型时，实际上是先从变量对象中获取地址引用（或者地址指针）再从堆内存中取数据</p>
+<h3 id="六、内存空间管理"><a href="#六、内存空间管理" class="headerlink" title="六、内存空间管理"></a>六、内存空间管理</h3><p>JavaScript的内存生命周期</p>
+<ul>
+<li>分配你所需要的内存</li>
+<li>使用分配到的内存（读、写）</li>
+<li>不需要时将其释放、归还</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">20</span>;  <span class="comment">// 在内存中给数值变量分配空间</span></span><br><span class="line"><span class="title function_">alert</span>(a + <span class="number">100</span>);  <span class="comment">// 使用内存</span></span><br><span class="line">a = <span class="literal">null</span>; <span class="comment">// 使用完毕之后，释放内存空间</span></span><br></pre></td></tr></table></figure>
+
+<p>JavaScript 自动垃圾收集机制的原理：就是找出那些不再继续使用的值，然后释放其占用的内存。垃圾收集器会每隔固定的时间段就执行一次释放操作。</p>
+<p>最常用的是通过<strong>标记清除</strong>的算法</p>
+<p><code>a = null</code> 实际就是释放引用，适当的释放引用可以提高性能</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://amoslier.github.io">AKira</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://amoslier.github.io/2023/03/04/JS/%E6%A0%B8%E5%BF%83/%EF%BC%88%E4%B8%80%EF%BC%89%E5%86%85%E5%AD%98%E7%A9%BA%E9%97%B4%E8%AF%A6%E7%BB%86%E5%9B%BE%E8%A7%A3/">https://amoslier.github.io/2023/03/04/JS/%E6%A0%B8%E5%BF%83/%EF%BC%88%E4%B8%80%EF%BC%89%E5%86%85%E5%AD%98%E7%A9%BA%E9%97%B4%E8%AF%A6%E7%BB%86%E5%9B%BE%E8%A7%A3/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://amoslier.github.io" target="_blank">Akira_Blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="https://s2.loli.net/2023/03/04/c3EGWyJDBLm87sA.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/03/04/JS/%E6%A0%B8%E5%BF%83/%EF%BC%88%E4%B8%83%EF%BC%89this/" title="this"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">this</div></div></a></div><div class="next-post pull-right"><a href="/2023/03/04/JS/%E5%89%8D%E7%AB%AF%E6%A8%A1%E5%9D%97%E5%8C%96/" title="前端模块化"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">前端模块化</div></div></a></div></nav><hr/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="giscus-wrap"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://s2.loli.net/2023/03/04/c3EGWyJDBLm87sA.jpg" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">AKira</div><div class="author-info__description">Akira_Blog</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">29</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">0</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">helo Akira 🙌</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E7%A9%BA%E9%97%B4%E8%AF%A6%E7%BB%86%E5%9B%BE%E8%A7%A3"><span class="toc-number">1.</span> <span class="toc-text">内存空间详细图解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%A0%88"><span class="toc-number">1.0.1.</span> <span class="toc-text">一、栈</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%A0%86"><span class="toc-number">1.0.2.</span> <span class="toc-text">二、堆</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E9%98%9F%E5%88%97"><span class="toc-number">1.0.3.</span> <span class="toc-text">三、队列</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%8F%98%E9%87%8F%E5%AF%B9%E8%B1%A1%EF%BC%88%E7%8E%AF%E5%A2%83%E8%AE%B0%E5%BD%95%E5%AF%B9%E8%B1%A1%EF%BC%89"><span class="toc-number">1.0.4.</span> <span class="toc-text">四、变量对象（环境记录对象）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E5%BC%95%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%B8%8E%E5%A0%86%E5%86%85%E5%AD%98"><span class="toc-number">1.0.5.</span> <span class="toc-text">五、引用数据类型与堆内存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E5%86%85%E5%AD%98%E7%A9%BA%E9%97%B4%E7%AE%A1%E7%90%86"><span class="toc-number">1.0.6.</span> <span class="toc-text">六、内存空间管理</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/03/04/mukun/" title="MuKun 总结">MuKun 总结</a><time datetime="2023-03-04T14:45:28.273Z" title="发表于 2023-03-04 22:45:28">2023-03-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/03/04/bugRoad/" title="Bug Road">Bug Road</a><time datetime="2023-03-04T14:45:28.271Z" title="发表于 2023-03-04 22:45:28">2023-03-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/03/04/%E9%9A%8F%E7%AC%94/2023.1.1/" title="2022 Summarize">2022 Summarize</a><time datetime="2023-03-04T14:45:28.266Z" title="发表于 2023-03-04 22:45:28">2023-03-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/03/04/vue/Vue%20Resource%20Learing/3.%20%E5%93%8D%E5%BA%94%E5%BC%8F%E5%8E%9F%E7%90%86/" title="Vue源码学习 - 响应式原理">Vue源码学习 - 响应式原理</a><time datetime="2023-03-04T14:45:28.201Z" title="发表于 2023-03-04 22:45:28">2023-03-04</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/03/04/vue/Vue%20Resource%20Learing/2.%20%E5%88%9D%E5%A7%8B%E5%8C%96%E8%BF%87%E7%A8%8B/" title="Vue源码学习 - 初始化过程">Vue源码学习 - 初始化过程</a><time datetime="2023-03-04T14:45:28.192Z" title="发表于 2023-03-04 22:45:28">2023-03-04</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://w.wallhaven.cc/full/gp/wallhaven-gpw527.png')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By AKira</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">Hi, here is Akira !</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><div class="js-pjax"><script>function loadGiscus () {
+  let nowTheme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light'
+
+  const config = Object.assign({
+    src: 'https://giscus.app/client.js',
+    'data-repo': 'amoslier/comment',
+    'data-repo-id': 'R_kgDOJFPLYQ',
+    'data-category-id': 'DIC_kwDOJFPLYc4CUo33',
+    'data-mapping': 'pathname',
+    'data-theme': nowTheme,
+    'data-reactions-enabled': '1',
+    crossorigin: 'anonymous',
+    async: true
+  },null)
+
+  let ele = document.createElement('script')
+  for (let key in config) {
+    ele.setAttribute(key, config[key])
+  }
+  document.getElementById('giscus-wrap').insertAdjacentElement('afterbegin',ele)
+}
+
+function changeGiscusTheme () {
+  const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light'
+
+  function sendMessage(message) {
+    const iframe = document.querySelector('iframe.giscus-frame');
+    if (!iframe) return;
+    iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+  }
+
+  sendMessage({
+    setConfig: {
+      theme: theme
+    }
+  });
+}
+
+if ('Giscus' === 'Giscus' || !true) {
+  if (true) btf.loadComment(document.getElementById('giscus-wrap'), loadGiscus)
+  else loadGiscus()
+} else {
+  function loadOtherComment () {
+    loadGiscus()
+  }
+}</script></div></div></body></html>
