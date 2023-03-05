@@ -7,8 +7,6 @@ tags:
 
 # 生命周期：
 
-![](C:\Users\lenovo\AppData\Roaming\marktext\images\2022-09-02-14-11-20-image.png)
-
 ## 重要的三个钩子
 
 ### render

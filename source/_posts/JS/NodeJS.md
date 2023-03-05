@@ -95,8 +95,6 @@ const function1 = () => function2()
 function1()
 ```
 
-![iGhsB.png](https://s1.328888.xyz/2022/04/14/iGhsB.png)
-
 `console.time() console.timeEnd()`计算耗时
 
 ```javascript
@@ -108,8 +106,6 @@ const measureDoingSomething = () => {
 }
 measureDoingSomething()
 ```
-
-![iGRWq.png](https://s1.328888.xyz/2022/04/14/iGRWq.png)
 
 `npm install progress`创建进度条
 
@@ -123,8 +119,6 @@ const timer = setInterval(() => {
   }
 }, 100)
 ```
-
-![iGwmS.png](https://s1.328888.xyz/2022/04/14/iGwmS.png)
 
 ***
 

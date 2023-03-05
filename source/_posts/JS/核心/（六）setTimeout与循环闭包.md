@@ -9,7 +9,7 @@ tags:
 
 setTimeout采用队列结构，页面中所有由setTimeout定义的操作，都将放在同一个队列中依次执行。
 
-![](https://upload-images.jianshu.io/upload_images/599584-91ecf3a7ff2ea3da.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp)
+![](https://s2.loli.net/2023/03/05/opT9YwiFQBy1lnG.webp)
 
 队列执行，需要等待函数调用栈清空之后才开始执行。即所有可执行代码执行完毕之后，才会开始执行由setTimeout定义的操作。而这些操作进入队列的顺序，则由设定的延迟时间来决定。
 
@@ -44,4 +44,4 @@ setTimeout(function () {
 fn();
 ```
 
-![](https://upload-images.jianshu.io/upload_images/599584-bc54089aededce6f.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp)
+![](https://s2.loli.net/2023/03/05/hVzmswRqXW4ONy9.webp)

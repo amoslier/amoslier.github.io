@@ -102,7 +102,7 @@ $('.target').css('width')
 })(window);
 ```
 
-![](https://upload-images.jianshu.io/upload_images/599584-181a154ebc9ec559.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp)
+![](https://s2.loli.net/2023/03/05/RlBK9ZgFsWfU4Io.webp)
 
 #### 对象封装分析
 
@@ -147,7 +147,7 @@ if(width > 20) {
 
 #### 关于静态方法，工具方法和实例方法
 
-![](https://upload-images.jianshu.io/upload_images/599584-3302c8cc266fd7cb.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp)
+![](https://s2.loli.net/2023/03/05/Sx6Y5IkjzwTFK7e.webp)
 
 #### jQuery插件封装
 

@@ -7,7 +7,7 @@ tags:
 
 # this
 
-![](https://upload-images.jianshu.io/upload_images/599584-391af3aad043c028.png?imageMogr2/auto-orient/strip|imageView2/2/w/1000/format/webp)
+![](https://s2.loli.net/2023/03/05/gAQwalibW9X1nK3.webp)
 
 **this的指向，是在函数被调用的时候被确定的，也就是执行上下文被创建时确定的**
 
