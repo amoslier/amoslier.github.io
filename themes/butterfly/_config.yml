@@ -677,7 +677,7 @@ aside:
       enable: true
       icon: fab fa-github
       text: Follow Me
-      link: https://github.com/xxxxxx
+      link: https://github.com/amoslier
   card_announcement:
     enable: true
     content: helo Akira 🙌
