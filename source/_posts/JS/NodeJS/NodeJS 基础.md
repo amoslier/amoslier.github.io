@@ -19,8 +19,6 @@ tags:
 > node app.js 
 ```
 
-<br/>
-
 ### 点命令
 
 - .help: 显示点命令的帮助。
@@ -30,8 +28,6 @@ tags:
 - .load: 加载 JavaScript 文件（相对于当前工作目录）。
 - .save: 将在 REPL 会话中输入的所有内容保存到文件（需指定文件名）。
 - .exit: 退出 REPL（相当于按下两次 ctrl-C）。
-
-<br/>
 
 ### 命令行接收参数
 

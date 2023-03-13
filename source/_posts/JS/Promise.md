@@ -5,29 +5,29 @@ categories:
 tags: 
 ---
 
-### Promise
+# Promise
 
-#### 概念
+## 概念
 
 - 处理异步请求
 - 单向状态更变
 - 回调地狱
 
-#### 应用场景
+## 应用场景
 
 Promise 来解决反馈结果需要等待的场景
 
-#### 同步与异步
+## 同步与异步
 
-##### 同步
+### 同步
 
 同步是指当发起一个请求时，如果未得到请求结果，代码逻辑将会等待，直到结果出来为止才会继续执行之后的代码。
 
-##### 异步
+### 异步
 
 异步是指当发起一个请求时，不会等待请求结果，直接继续执行后面的代码。请求结果的处理逻辑，会添加一个监听，等到反馈结果出来之后，在回调函数中处理对应的逻辑。
 
-##### 原生AJAX
+## 原生AJAX
 
 - 创建 xhr ( XML Http Requst )
 - 建立连接，xhr.open()
@@ -38,7 +38,7 @@ Promise 来解决反馈结果需要等待的场景
 
 promise 以及其 then 的出现就是来度化此劫的。
 
-##### 核心
+## 核心
 
 resolve、reject进行状态更新pedding -- resolved / reject
 
@@ -70,7 +70,7 @@ catch 的第一个参数也为一个回调函数，该函数的参数则是 re
 
 当有一个的 promise 为 resolved / rejected 就返回 resolved / rejected。
 
-##### then的执行机制
+## then的执行机制
 
 then 必须在 promise 的状态确定后才能被执行，并将其回调函数，放入微任务队列，等待执行。
 
@@ -94,7 +94,7 @@ p2.then(function f55(v) { console.log(55) })
 // 1 11 2 22 3 33 4 5 44 55
 ```
 
-##### 总结
+### 总结
 
 1. Promise的状态一经改变就不能再改变。
 2. .then和.catch都会返回一个新的Promise。
@@ -111,7 +111,7 @@ p2.then(function f55(v) { console.log(55) })
 13. 在 async 函数中抛出了错误，则终止错误结果，不会继续向下执行，可以通过 try catch 或者 .catch 使得错误的地方不影响。
 14. await 后面的语句相当于放到了 new Promise 中，下一行之后的代码都放到 Promise.then 中，需要等待 await 后面 promise 的处理。
 
-#### 运用
+## 运用
 
 - 手写 promise
   
@@ -196,7 +196,7 @@ function mergePromise(promiseArr) {
 }
 ```
 
-事件循环机制
+## 事件循环机制
 
 - 函数调用栈
 
@@ -220,13 +220,13 @@ function mergePromise(promiseArr) {
   
   - process.nextTick
 
-循环机制
+### 循环机制
 
 宏任务 x 1 ➡️ 函数调用栈 ➡️ 微任务 x n ➡️ 宏任务 x 1 ➡️····
 
 也就是说，宏任务一个一个的出队列，进入函数调用栈执行，然后在执行期间产生的微任务，会在此次函数调用栈执行完毕后，去清空微任务队列，以此往复。
 
-#### 参考
+## 参考
 
 [详解ES6中的async/await - 腾讯云开发者社区-腾讯云](https://cloud.tencent.com/developer/article/1623173)
 
